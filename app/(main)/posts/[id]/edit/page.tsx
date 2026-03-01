@@ -21,18 +21,31 @@ export default async function EditPostPage({
   if (!isOwner && !isAdmin) redirect("/");
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-50">
-        게시글 수정
-      </h1>
-      <PostForm
-        initialData={{
-          id: post.id,
-          title: post.title,
-          content: post.content,
-          files: post.files,
-        }}
-      />
+    <div className="mx-auto max-w-2xl">
+      <div className="mb-6">
+        <h1
+          className="text-2xl font-bold"
+          style={{ fontFamily: "var(--font-heading)", color: "var(--text-primary)" }}
+        >
+          게시글 수정
+        </h1>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
+          게시글 내용을 수정합니다
+        </p>
+      </div>
+      <div
+        className="rounded-xl p-6"
+        style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border)" }}
+      >
+        <PostForm
+          initialData={{
+            id: post.id,
+            title: post.title,
+            content: post.content,
+            files: post.files,
+          }}
+        />
+      </div>
     </div>
   );
 }

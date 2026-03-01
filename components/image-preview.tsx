@@ -1,45 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import { X } from "lucide-react";
 
 interface ImagePreviewProps {
   fileId: string;
   fileName: string;
-  fileSize: number;
 }
 
-function formatSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-export function ImagePreview({ fileId, fileName, fileSize }: ImagePreviewProps) {
+export function ImagePreview({ fileId, fileName }: ImagePreviewProps) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-        <div
-          className="cursor-pointer"
-          onClick={() => setShowModal(true)}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`/api/files/${fileId}/preview?w=600`}
-            alt={fileName}
-            className="h-48 w-full object-cover"
-            loading="lazy"
-          />
-        </div>
-        <div className="p-3">
-          <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
-            {fileName}
-          </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            {formatSize(fileSize)}
-          </p>
-        </div>
+      <div
+        className="h-[80px] w-[80px] cursor-pointer overflow-hidden rounded-lg"
+        style={{ border: "1px solid var(--border)" }}
+        onClick={() => setShowModal(true)}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/api/files/${fileId}/preview?w=160`}
+          alt={fileName}
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
       </div>
 
       {showModal && (
@@ -50,11 +35,9 @@ export function ImagePreview({ fileId, fileName, fileSize }: ImagePreviewProps) 
           <div className="relative max-h-[90vh] max-w-[90vw]">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute -right-3 -top-3 rounded-full bg-white p-1 shadow-lg dark:bg-gray-800"
+              className="absolute -right-3 -top-3 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-lg"
             >
-              <svg className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <X size={16} style={{ color: "var(--text-secondary)" }} />
             </button>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

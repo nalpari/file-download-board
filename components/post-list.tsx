@@ -1,73 +1,104 @@
+"use client";
+
 import Link from "next/link";
+import {
+  Image as ImageIcon,
+  FileText,
+  FileSpreadsheet,
+  FileArchive,
+  File,
+  Download,
+} from "lucide-react";
 
 interface PostListProps {
   posts: {
     id: string;
     title: string;
     author: { name: string | null };
-    files: { id: string }[];
+    files: { id: string; mimeType: string }[];
     downloadCount: number;
     createdAt: Date;
   }[];
 }
 
+function getFileTypeBadge(mimeType: string) {
+  if (mimeType.startsWith("image/")) return { label: "IMAGE", className: "badge-image", icon: ImageIcon };
+  if (mimeType === "application/pdf") return { label: "PDF", className: "badge-pdf", icon: FileText };
+  if (mimeType.includes("spreadsheet") || mimeType.includes("excel")) return { label: "EXCEL", className: "badge-excel", icon: FileSpreadsheet };
+  if (mimeType.includes("word") || mimeType.includes("document")) return { label: "WORD", className: "badge-word", icon: FileText };
+  if (mimeType.includes("zip") || mimeType.includes("archive") || mimeType.includes("compressed")) return { label: "ZIP", className: "badge-zip", icon: FileArchive };
+  return { label: "FILE", className: "badge-default", icon: File };
+}
+
 export function PostList({ posts }: PostListProps) {
   if (posts.length === 0) {
     return (
-      <div className="rounded-lg border border-gray-200 bg-gray-50 py-16 text-center dark:border-gray-700 dark:bg-gray-900">
-        <p className="text-gray-500 dark:text-gray-400">게시글이 없습니다.</p>
+      <div className="table-container py-16 text-center">
+        <p style={{ color: "var(--text-muted)" }}>게시글이 없습니다.</p>
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="table-container overflow-x-auto">
       <table className="w-full text-left text-sm">
-        <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
-          <tr>
-            <th className="px-4 py-3 text-center w-16">#</th>
-            <th className="px-4 py-3">제목</th>
-            <th className="px-4 py-3 text-center w-24">작성자</th>
-            <th className="px-4 py-3 text-center w-20">파일</th>
-            <th className="px-4 py-3 text-center w-24">다운로드</th>
-            <th className="px-4 py-3 text-center w-28">작성일</th>
+        <thead>
+          <tr style={{ backgroundColor: "var(--bg-surface)", borderBottom: "1px solid var(--border)" }}>
+            <th className="px-5 py-3 text-xs font-medium" style={{ color: "var(--text-muted)" }}>제목</th>
+            <th className="px-5 py-3 text-xs font-medium text-center w-24" style={{ color: "var(--text-muted)" }}>파일유형</th>
+            <th className="px-5 py-3 text-xs font-medium text-center w-24" style={{ color: "var(--text-muted)" }}>작성자</th>
+            <th className="px-5 py-3 text-xs font-medium text-center w-28" style={{ color: "var(--text-muted)" }}>작성일</th>
+            <th className="px-5 py-3 text-xs font-medium text-center w-16" style={{ color: "var(--text-muted)" }}></th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-          {posts.map((post, index) => (
-            <tr
-              key={post.id}
-              className="bg-white hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-            >
-              <td className="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
-                {index + 1}
-              </td>
-              <td className="px-4 py-3">
-                <Link
-                  href={`/posts/${post.id}`}
-                  className="font-medium text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400"
-                >
-                  {post.title}
-                </Link>
-              </td>
-              <td className="px-4 py-3 text-center text-gray-600 dark:text-gray-400">
-                {post.author.name ?? "알 수 없음"}
-              </td>
-              <td className="px-4 py-3 text-center">
-                {post.files.length > 0 && (
-                  <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
-                    {post.files.length}
-                  </span>
-                )}
-              </td>
-              <td className="px-4 py-3 text-center text-gray-600 dark:text-gray-400">
-                {post.downloadCount}
-              </td>
-              <td className="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
-                {new Date(post.createdAt).toLocaleDateString("ko-KR")}
-              </td>
-            </tr>
-          ))}
+        <tbody>
+          {posts.map((post) => {
+            const primaryFile = post.files[0];
+            const badge = primaryFile ? getFileTypeBadge(primaryFile.mimeType) : null;
+
+            return (
+              <tr
+                key={post.id}
+                className="transition-base"
+                style={{ borderBottom: "1px solid var(--border)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--bg-surface)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+              >
+                <td className="px-5 py-3.5">
+                  <div className="flex items-center gap-3">
+                    {badge && <badge.icon size={18} style={{ color: "var(--text-muted)", flexShrink: 0 }} />}
+                    <Link
+                      href={`/posts/${post.id}`}
+                      className="font-medium transition-base"
+                      style={{ color: "var(--text-primary)" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-primary)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                    >
+                      {post.title}
+                    </Link>
+                  </div>
+                </td>
+                <td className="px-5 py-3.5 text-center">
+                  {badge && (
+                    <span className={`badge ${badge.className}`}>
+                      {badge.label}
+                    </span>
+                  )}
+                </td>
+                <td className="px-5 py-3.5 text-center text-sm" style={{ color: "var(--text-secondary)" }}>
+                  {post.author.name ?? "알 수 없음"}
+                </td>
+                <td className="px-5 py-3.5 text-center text-sm" style={{ color: "var(--text-muted)" }}>
+                  {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                </td>
+                <td className="px-5 py-3.5 text-center">
+                  <Link href={`/posts/${post.id}`} className="transition-base" style={{ color: "var(--text-muted)" }}>
+                    <Download size={16} />
+                  </Link>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

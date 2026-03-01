@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
+import { FileText } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -18,38 +19,39 @@ interface PdfPreviewProps {
 export function PdfPreview({ fileId, fileName }: PdfPreviewProps) {
   const [error, setError] = useState(false);
 
+  if (error) {
+    return (
+      <div
+        className="flex h-[80px] w-[80px] flex-col items-center justify-center rounded-lg"
+        style={{ backgroundColor: "#FEE2E2" }}
+      >
+        <FileText size={32} style={{ color: "#DC2626" }} />
+        <span className="mt-1 text-[10px] font-semibold" style={{ color: "#DC2626" }}>PDF</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-      <div className="flex h-48 items-center justify-center bg-gray-50 dark:bg-gray-800">
-        {error ? (
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            PDF를 불러올 수 없습니다.
-          </p>
-        ) : (
-          <Document
-            file={`/api/files/${fileId}/preview`}
-            loading={
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                PDF 로딩 중...
-              </p>
-            }
-            onLoadError={() => setError(true)}
-          >
-            <Page
-              pageNumber={1}
-              width={280}
-              renderTextLayer={false}
-              renderAnnotationLayer={false}
-            />
-          </Document>
-        )}
-      </div>
-      <div className="p-3">
-        <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
-          {fileName}
-        </p>
-        <p className="text-xs text-gray-500 dark:text-gray-400">PDF 문서</p>
-      </div>
+    <div
+      className="h-[80px] w-[80px] overflow-hidden rounded-lg"
+      style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg-surface)" }}
+    >
+      <Document
+        file={`/api/files/${fileId}/preview`}
+        loading={
+          <div className="flex h-full w-full items-center justify-center">
+            <FileText size={24} style={{ color: "#DC2626" }} />
+          </div>
+        }
+        onLoadError={() => setError(true)}
+      >
+        <Page
+          pageNumber={1}
+          width={80}
+          renderTextLayer={false}
+          renderAnnotationLayer={false}
+        />
+      </Document>
     </div>
   );
 }

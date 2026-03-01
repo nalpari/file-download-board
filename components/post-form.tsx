@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createPost, updatePost } from "@/app/actions/posts";
 import { FileUpload } from "@/components/file-upload";
+import { X } from "lucide-react";
 
 interface UploadedFile {
   originalName: string;
@@ -77,12 +78,21 @@ export function PostForm({ initialData }: PostFormProps) {
     }
   }
 
+  const inputStyle = {
+    backgroundColor: "var(--bg-primary)",
+    border: "1px solid var(--border)",
+    color: "var(--text-primary)",
+  };
+
+  const focusStyle = "focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)] focus:border-transparent";
+
   return (
-    <form ref={formRef} action={handleSubmit} className="space-y-6">
+    <form ref={formRef} action={handleSubmit} className="space-y-5">
       <div>
         <label
           htmlFor="title"
-          className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          className="mb-1.5 block text-sm font-medium"
+          style={{ color: "var(--text-primary)" }}
         >
           제목
         </label>
@@ -92,7 +102,8 @@ export function PostForm({ initialData }: PostFormProps) {
           name="title"
           required
           defaultValue={initialData?.title}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+          className={`w-full rounded-lg px-3.5 py-2.5 text-sm ${focusStyle}`}
+          style={inputStyle}
           placeholder="제목을 입력하세요"
         />
       </div>
@@ -100,7 +111,8 @@ export function PostForm({ initialData }: PostFormProps) {
       <div>
         <label
           htmlFor="content"
-          className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          className="mb-1.5 block text-sm font-medium"
+          style={{ color: "var(--text-primary)" }}
         >
           내용
         </label>
@@ -108,40 +120,44 @@ export function PostForm({ initialData }: PostFormProps) {
           id="content"
           name="content"
           required
-          rows={10}
+          rows={8}
           defaultValue={initialData?.content}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
+          className={`w-full rounded-lg px-3.5 py-2.5 text-sm ${focusStyle}`}
+          style={inputStyle}
           placeholder="내용을 입력하세요"
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label
+          className="mb-1.5 block text-sm font-medium"
+          style={{ color: "var(--text-primary)" }}
+        >
           파일 첨부
         </label>
 
         {existingFiles.length > 0 && (
           <div className="mb-3">
-            <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">기존 파일</p>
+            <p className="mb-2 text-xs" style={{ color: "var(--text-muted)" }}>기존 파일</p>
             <ul className="space-y-2">
               {existingFiles.map((file) => (
                 <li
                   key={file.id}
-                  className="flex items-center justify-between rounded-md border border-gray-200 bg-white px-3 py-2 dark:border-gray-700 dark:bg-gray-900"
+                  className="flex items-center justify-between rounded-lg px-3 py-2.5"
+                  style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg-surface)" }}
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <p className="truncate text-sm font-medium" style={{ color: "var(--text-primary)" }}>
                       {file.originalName}
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveExisting(file.id)}
-                    className="ml-2 flex-shrink-0 text-gray-400 hover:text-red-500"
+                    className="ml-2 flex-shrink-0 transition-base"
+                    style={{ color: "var(--text-muted)" }}
                   >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <X size={16} />
                   </button>
                 </li>
               ))}
@@ -153,25 +169,30 @@ export function PostForm({ initialData }: PostFormProps) {
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
+        <div
+          className="rounded-lg p-3 text-sm"
+          style={{ backgroundColor: "#FEF2F2", color: "var(--error)" }}
+        >
           {error}
         </div>
       )}
 
-      <div className="flex gap-3">
-        <button
-          type="submit"
-          disabled={submitting}
-          className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {submitting ? "저장 중..." : initialData ? "수정" : "작성"}
-        </button>
+      <div className="flex justify-end gap-3 pt-2">
         <button
           type="button"
           onClick={() => router.back()}
-          className="rounded-lg border border-gray-300 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+          className="rounded-lg px-5 py-2.5 text-sm font-medium transition-base"
+          style={{ border: "1px solid var(--border)", color: "var(--text-secondary)" }}
         >
           취소
+        </button>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="rounded-lg px-5 py-2.5 text-sm font-medium text-white transition-base disabled:cursor-not-allowed disabled:opacity-50"
+          style={{ backgroundColor: "var(--accent-primary)" }}
+        >
+          {submitting ? "저장 중..." : initialData ? "수정" : "업로드"}
         </button>
       </div>
     </form>

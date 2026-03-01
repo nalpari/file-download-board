@@ -1,13 +1,16 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  totalCount?: number;
+  pageSize?: number;
 }
 
-export function Pagination({ currentPage, totalPages }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, totalCount, pageSize = 10 }: PaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -20,7 +23,6 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
     router.push(`${pathname}?${params.toString()}`);
   }
 
-  // 페이지 번호 범위 계산 (최대 5개)
   const maxVisible = 5;
   let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
   const end = Math.min(totalPages, start + maxVisible - 1);
@@ -33,37 +35,53 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
     pages.push(i);
   }
 
+  const from = (currentPage - 1) * pageSize + 1;
+  const to = totalCount ? Math.min(currentPage * pageSize, totalCount) : currentPage * pageSize;
+
   return (
-    <nav className="mt-6 flex items-center justify-center gap-1">
-      <button
-        onClick={() => goToPage(currentPage - 1)}
-        disabled={currentPage <= 1}
-        className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
-      >
-        이전
-      </button>
+    <nav className="mt-6 flex items-center justify-between">
+      {/* Count info */}
+      <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+        {totalCount
+          ? `총 ${totalCount}개 파일 중 ${from}-${to}`
+          : `페이지 ${currentPage} / ${totalPages}`}
+      </p>
 
-      {pages.map((page) => (
+      {/* Page buttons */}
+      <div className="flex items-center gap-1">
         <button
-          key={page}
-          onClick={() => goToPage(page)}
-          className={`rounded-md px-3 py-1.5 text-sm ${
-            page === currentPage
-              ? "bg-blue-600 text-white"
-              : "border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
-          }`}
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage <= 1}
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-sm transition-base disabled:cursor-not-allowed disabled:opacity-40"
+          style={{ color: "var(--text-secondary)", border: "1px solid var(--border)" }}
         >
-          {page}
+          <ChevronLeft size={16} />
         </button>
-      ))}
 
-      <button
-        onClick={() => goToPage(currentPage + 1)}
-        disabled={currentPage >= totalPages}
-        className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
-      >
-        다음
-      </button>
+        {pages.map((page) => (
+          <button
+            key={page}
+            onClick={() => goToPage(page)}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-base"
+            style={
+              page === currentPage
+                ? { backgroundColor: "var(--accent-primary)", color: "#FFFFFF" }
+                : { color: "var(--text-secondary)", border: "1px solid var(--border)" }
+            }
+          >
+            {page}
+          </button>
+        ))}
+
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage >= totalPages}
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-sm transition-base disabled:cursor-not-allowed disabled:opacity-40"
+          style={{ color: "var(--text-secondary)", border: "1px solid var(--border)" }}
+        >
+          <ChevronRight size={16} />
+        </button>
+      </div>
     </nav>
   );
 }

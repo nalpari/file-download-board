@@ -16,7 +16,7 @@ export async function getPosts(page: number = 1, limit: number = 10) {
       orderBy: { createdAt: "desc" },
       include: {
         author: { select: { id: true, name: true } },
-        files: { select: { id: true } },
+        files: { select: { id: true, mimeType: true } },
       },
     }),
     prisma.post.count(),
