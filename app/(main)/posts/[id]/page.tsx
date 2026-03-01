@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { FilePreview } from "@/components/file-preview";
 import { DeletePostButton } from "@/components/delete-post-button";
 import Link from "next/link";
-import type { File as PrismaFile } from "@/app/generated/prisma/client";
+import type { File as PrismaFile } from "@/generated/prisma/client";
 
 function formatDate(date: Date): string {
   return new Date(date).toLocaleDateString("ko-KR", {

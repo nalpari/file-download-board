@@ -1,9 +1,12 @@
-import { auth } from "@/lib/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/lib/auth.config";
+
+const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
   const isLoggedIn = !!req.auth;
-  const isAdmin = req.auth?.user?.role === "ADMIN";
+  const isAdmin = (req.auth?.user as { role?: string })?.role === "ADMIN";
 
   const authRequired = ["/posts/new", "/posts/edit"];
   const isAuthRequired = authRequired.some((path) =>

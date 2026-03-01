@@ -3,7 +3,7 @@ import {
   UserRoleButton,
   DeleteUserButton,
 } from "@/components/admin-user-actions";
-import type { Role } from "@/app/generated/prisma/enums";
+import type { Role } from "@/generated/prisma/enums";
 
 function formatDate(date: Date): string {
   return new Date(date).toLocaleDateString("ko-KR", {

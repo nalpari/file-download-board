@@ -27,7 +27,7 @@ export function PdfPreview({ fileId, fileName }: PdfPreviewProps) {
           </p>
         ) : (
           <Document
-            file={`/api/files/${fileId}`}
+            file={`/api/files/${fileId}/preview`}
             loading={
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 PDF 로딩 중...

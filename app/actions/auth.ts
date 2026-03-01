@@ -1,9 +1,11 @@
 "use server";
 
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { AuthError } from "next-auth";
 
 export async function register(formData: FormData) {
   const email = formData.get("email") as string;
@@ -34,7 +36,10 @@ export async function login(formData: FormData) {
   try {
     await signIn("credentials", { email, password, redirectTo: "/" });
   } catch (error) {
-    if ((error as Error).message?.includes("NEXT_REDIRECT")) throw error;
-    return { error: "이메일 또는 비밀번호가 올바르지 않습니다." };
+    if (isRedirectError(error)) throw error;
+    if (error instanceof AuthError) {
+      return { error: "이메일 또는 비밀번호가 올바르지 않습니다." };
+    }
+    throw error;
   }
 }

@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 
 const IMAGE_MIME_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+const PREVIEW_MIME_TYPES = [...IMAGE_MIME_TYPES, "application/pdf"];
 
 export async function GET(
   req: NextRequest,
@@ -17,8 +18,7 @@ export async function GET(
     return NextResponse.json({ error: "파일을 찾을 수 없습니다." }, { status: 404 });
   }
 
-  // 이미지가 아닌 경우 404
-  if (!IMAGE_MIME_TYPES.includes(file.mimeType)) {
+  if (!PREVIEW_MIME_TYPES.includes(file.mimeType)) {
     return NextResponse.json(
       { error: "미리보기를 지원하지 않는 파일 형식입니다." },
       { status: 404 }
@@ -30,7 +30,19 @@ export async function GET(
     return NextResponse.json({ error: "파일이 서버에 존재하지 않습니다." }, { status: 404 });
   }
 
-  // URL 파라미터로 크기 조정
+  // PDF: 원본 파일 그대로 반환 (미리보기 전용, 다운로드 카운트 미증가)
+  if (file.mimeType === "application/pdf") {
+    const fileBuffer = fs.readFileSync(filePath);
+    return new Response(fileBuffer, {
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Length": String(file.size),
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
+  }
+
+  // 이미지: sharp로 리사이즈
   const { searchParams } = new URL(req.url);
   const width = Math.min(Number(searchParams.get("w")) || 800, 1200);
 
