@@ -35,3 +35,4 @@ When initializing, follow these patterns based on the installed skills:
 - 코드 생성시, 항상 CLAUDE.md의 내용을 참고하여 생성한다.
 - 코드 생성시, 항상 최신화된 코드를 생성한다.
 - 코드 작업을 마치면 항상 린트체크, 타입체크, 빌드체크를 수행한다.
+- 커밋메시지 작성시에는 접두사를 제외한 메세지 본문은 한국어로 작성한다.
