@@ -1,0 +1,795 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-01T09:31:39.342Z",
+  "activeFeatures": [
+    "file-download-board",
+    "(main)",
+    "(auth)",
+    "actions",
+    "login",
+    "register",
+    "prisma",
+    "upload",
+    "[id]",
+    "preview",
+    "new",
+    "edit",
+    "admin",
+    "users",
+    "posts"
+  ],
+  "primaryFeature": "file-download-board",
+  "features": {
+    "file-download-board": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:22:59.758Z",
+        "lastUpdated": "2026-03-01T09:31:39.342Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\components\\pdf-preview.tsx"
+    },
+    "(main)": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:18.331Z",
+        "lastUpdated": "2026-03-01T09:20:07.897Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\(main)\\page.tsx"
+    },
+    "(auth)": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:25.911Z",
+        "lastUpdated": "2026-03-01T08:29:25.911Z"
+      },
+      "lastFile": "/mnt/c/dev/file-download-board/app/(auth)/layout.tsx"
+    },
+    "actions": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:30.418Z",
+        "lastUpdated": "2026-03-01T09:21:42.901Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\actions\\posts.ts"
+    },
+    "login": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:38.105Z",
+        "lastUpdated": "2026-03-01T08:29:38.105Z"
+      },
+      "lastFile": "/mnt/c/dev/file-download-board/app/(auth)/login/page.tsx"
+    },
+    "register": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:44.846Z",
+        "lastUpdated": "2026-03-01T08:29:44.846Z"
+      },
+      "lastFile": "/mnt/c/dev/file-download-board/app/(auth)/register/page.tsx"
+    },
+    "prisma": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:56.281Z",
+        "lastUpdated": "2026-03-01T08:54:24.414Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\prisma\\seed.ts"
+    },
+    "upload": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:29:57.661Z",
+        "lastUpdated": "2026-03-01T08:29:57.661Z"
+      },
+      "lastFile": "/mnt/c/dev/file-download-board/app/api/upload/route.ts"
+    },
+    "[id]": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:32:54.405Z",
+        "lastUpdated": "2026-03-01T09:20:29.933Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\(main)\\posts\\[id]\\page.tsx"
+    },
+    "preview": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:33:00.181Z",
+        "lastUpdated": "2026-03-01T09:07:44.038Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\api\\files\\[id]\\preview\\route.ts"
+    },
+    "new": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:33:40.511Z",
+        "lastUpdated": "2026-03-01T09:20:38.969Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\(main)\\posts\\new\\page.tsx"
+    },
+    "edit": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:37:02.953Z",
+        "lastUpdated": "2026-03-01T09:21:27.646Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\(main)\\posts\\[id]\\edit\\page.tsx"
+    },
+    "admin": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:37:29.885Z",
+        "lastUpdated": "2026-03-01T08:37:34.802Z"
+      },
+      "lastFile": "/mnt/c/dev/file-download-board/app/admin/page.tsx"
+    },
+    "users": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:37:57.673Z",
+        "lastUpdated": "2026-03-01T08:54:31.374Z"
+      },
+      "lastFile": "C:\\dev\\file-download-board\\app\\admin\\users\\page.tsx"
+    },
+    "posts": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-01T08:38:06.162Z",
+        "lastUpdated": "2026-03-01T08:39:16.036Z"
+      },
+      "lastFile": "/mnt/c/dev/file-download-board/app/admin/posts/page.tsx"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-01T07:43:28.242Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-01T09:31:39.342Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-01T08:22:59.758Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:24:58.024Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:26:38.738Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:10.254Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:10.910Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:14.541Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:17.237Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:18.331Z",
+      "feature": "(main)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:19.686Z",
+      "feature": "(main)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:21.612Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:25.911Z",
+      "feature": "(auth)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:26.029Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:30.418Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:38.105Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:44.846Z",
+      "feature": "register",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:45.531Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:56.281Z",
+      "feature": "prisma",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:29:57.661Z",
+      "feature": "upload",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:30:19.487Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:30:44.351Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:30:45.535Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:32:43.604Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:32:50.647Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:32:54.405Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:32:57.466Z",
+      "feature": "(main)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:33:00.181Z",
+      "feature": "preview",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:33:24.426Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:33:32.286Z",
+      "feature": "preview",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:33:35.694Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:33:40.511Z",
+      "feature": "new",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:35:55.208Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:35:56.646Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:36:06.173Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:36:10.550Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:36:24.415Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:36:38.823Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:36:52.020Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:02.953Z",
+      "feature": "edit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:19.500Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:29.885Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:34.802Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:43.475Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:45.431Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:37:57.673Z",
+      "feature": "users",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:38:06.162Z",
+      "feature": "posts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:38:56.423Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:39:01.918Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:39:07.658Z",
+      "feature": "users",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:39:11.788Z",
+      "feature": "users",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:39:16.036Z",
+      "feature": "posts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:40:08.500Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:40:12.885Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:40:17.046Z",
+      "feature": "users",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:40:25.758Z",
+      "feature": "prisma",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:40:50.883Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:42:30.931Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:42:36.027Z",
+      "feature": "prisma",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:52:11.140Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:52:11.380Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:52:11.610Z",
+      "feature": "prisma",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:54:22.355Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:54:24.414Z",
+      "feature": "prisma",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:54:31.374Z",
+      "feature": "users",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:54:32.823Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:54:37.392Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:58:23.992Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:58:29.128Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T08:58:35.288Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:01:53.510Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:01:59.544Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:02:07.205Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:02:15.764Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:02:30.482Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:05:04.280Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:07:44.038Z",
+      "feature": "preview",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:07:49.001Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:18:12.392Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:18:50.647Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:19:06.929Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:19:15.248Z",
+      "feature": "(main)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:19:37.332Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:19:53.364Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:20:07.897Z",
+      "feature": "(main)",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:20:29.933Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:20:38.969Z",
+      "feature": "new",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:21:04.864Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:21:27.646Z",
+      "feature": "edit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:21:42.901Z",
+      "feature": "actions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:21:58.386Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:22:43.209Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:24:41.805Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:31:15.900Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:31:27.580Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-01T09:31:39.342Z",
+      "feature": "file-download-board",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
