@@ -1,13 +1,7 @@
 import { ImagePreview } from "@/components/image-preview";
 import { PdfPreview } from "@/components/pdf-preview";
-import {
-  FileSpreadsheet,
-  FileText,
-  FileArchive,
-  FileImage,
-  File,
-  Download,
-} from "lucide-react";
+import { Download } from "lucide-react";
+import { formatSize, getFileTypeInfo } from "@/lib/utils";
 
 interface FilePreviewProps {
   file: {
@@ -16,26 +10,6 @@ interface FilePreviewProps {
     mimeType: string;
     size: number;
   };
-}
-
-function formatSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-function getFileTypeInfo(mimeType: string) {
-  if (mimeType.startsWith("image/"))
-    return { icon: FileImage, color: "#2563EB", bg: "#DBEAFE", label: "IMAGE" };
-  if (mimeType === "application/pdf")
-    return { icon: FileText, color: "#DC2626", bg: "#FEE2E2", label: "PDF" };
-  if (mimeType.includes("excel") || mimeType.includes("spreadsheet"))
-    return { icon: FileSpreadsheet, color: "#16A34A", bg: "#DCFCE7", label: "EXCEL" };
-  if (mimeType.includes("word") || mimeType.includes("document"))
-    return { icon: FileText, color: "#4F46E5", bg: "#E0E7FF", label: "WORD" };
-  if (mimeType.includes("zip") || mimeType.includes("archive") || mimeType.includes("compressed"))
-    return { icon: FileArchive, color: "#D97706", bg: "#FEF3C7", label: "ZIP" };
-  return { icon: File, color: "#6B7280", bg: "#F3F4F6", label: "FILE" };
 }
 
 export function FilePreview({ file }: FilePreviewProps) {

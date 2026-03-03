@@ -1,11 +1,12 @@
 import { auth, signOut } from "@/lib/auth";
 import Link from "next/link";
 import { Search, Shield } from "lucide-react";
+import { isAdminUser } from "@/lib/utils";
 
 export async function Navbar() {
   const session = await auth();
   const user = session?.user;
-  const isAdmin = (user as { role?: string })?.role === "ADMIN";
+  const isAdmin = isAdminUser(user);
 
   const initials = user?.name
     ? user.name

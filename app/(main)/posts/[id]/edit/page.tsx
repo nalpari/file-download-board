@@ -2,6 +2,7 @@ import { getPost } from "@/app/actions/posts";
 import { auth } from "@/lib/auth";
 import { notFound, redirect } from "next/navigation";
 import { PostForm } from "@/components/post-form";
+import { isAdminUser } from "@/lib/utils";
 
 export default async function EditPostPage({
   params,
@@ -9,16 +10,12 @@ export default async function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const session = await auth();
+  const [session, post] = await Promise.all([auth(), getPost(id)]);
   if (!session?.user?.id) redirect("/login");
-
-  const post = await getPost(id);
   if (!post) notFound();
 
   const isOwner = session.user.id === post.authorId;
-  const isAdmin = (session.user as { role?: string })?.role === "ADMIN";
-
-  if (!isOwner && !isAdmin) redirect("/");
+  if (!isOwner && !isAdminUser(session.user)) redirect("/");
 
   return (
     <div className="mx-auto max-w-2xl">

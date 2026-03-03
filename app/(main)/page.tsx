@@ -12,8 +12,10 @@ export default async function HomePage({
 }) {
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
-  const { posts, totalPages } = await getPosts(currentPage);
-  const session = await auth();
+  const [{ posts, totalPages }, session] = await Promise.all([
+    getPosts(currentPage),
+    auth(),
+  ]);
 
   return (
     <div>

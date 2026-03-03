@@ -1,14 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Image as ImageIcon,
-  FileText,
-  FileSpreadsheet,
-  FileArchive,
-  File,
-  Download,
-} from "lucide-react";
+import { Download } from "lucide-react";
+import { getFileTypeInfo } from "@/lib/utils";
 
 interface PostListProps {
   posts: {
@@ -19,15 +13,6 @@ interface PostListProps {
     downloadCount: number;
     createdAt: Date;
   }[];
-}
-
-function getFileTypeBadge(mimeType: string) {
-  if (mimeType.startsWith("image/")) return { label: "IMAGE", className: "badge-image", icon: ImageIcon };
-  if (mimeType === "application/pdf") return { label: "PDF", className: "badge-pdf", icon: FileText };
-  if (mimeType.includes("spreadsheet") || mimeType.includes("excel")) return { label: "EXCEL", className: "badge-excel", icon: FileSpreadsheet };
-  if (mimeType.includes("word") || mimeType.includes("document")) return { label: "WORD", className: "badge-word", icon: FileText };
-  if (mimeType.includes("zip") || mimeType.includes("archive") || mimeType.includes("compressed")) return { label: "ZIP", className: "badge-zip", icon: FileArchive };
-  return { label: "FILE", className: "badge-default", icon: File };
 }
 
 export function PostList({ posts }: PostListProps) {
@@ -54,34 +39,29 @@ export function PostList({ posts }: PostListProps) {
         <tbody>
           {posts.map((post) => {
             const primaryFile = post.files[0];
-            const badge = primaryFile ? getFileTypeBadge(primaryFile.mimeType) : null;
+            const typeInfo = primaryFile ? getFileTypeInfo(primaryFile.mimeType) : null;
 
             return (
               <tr
                 key={post.id}
-                className="transition-base"
+                className="transition-base table-row-hover"
                 style={{ borderBottom: "1px solid var(--border)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--bg-surface)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
               >
                 <td className="px-5 py-3.5">
                   <div className="flex items-center gap-3">
-                    {badge && <badge.icon size={18} style={{ color: "var(--text-muted)", flexShrink: 0 }} />}
+                    {typeInfo && <typeInfo.icon size={18} className="shrink-0 text-muted" />}
                     <Link
                       href={`/posts/${post.id}`}
-                      className="font-medium transition-base"
-                      style={{ color: "var(--text-primary)" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-primary)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                      className="font-medium text-foreground transition-base link-hover"
                     >
                       {post.title}
                     </Link>
                   </div>
                 </td>
                 <td className="px-5 py-3.5 text-center">
-                  {badge && (
-                    <span className={`badge ${badge.className}`}>
-                      {badge.label}
+                  {typeInfo && (
+                    <span className={`badge ${typeInfo.badgeClass}`}>
+                      {typeInfo.label}
                     </span>
                   )}
                 </td>

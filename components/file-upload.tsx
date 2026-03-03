@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { UploadCloud, X } from "lucide-react";
+import { formatSize } from "@/lib/utils";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 interface UploadedFile {
   originalName: string;
@@ -29,8 +33,6 @@ export function FileUpload({
   const [progress, setProgress] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const MAX_SIZE = 10 * 1024 * 1024; // 10MB
-
   const validateFiles = useCallback(
     (files: File[]): File[] | null => {
       setError(null);
@@ -44,7 +46,7 @@ export function FileUpload({
       const validFiles = files.slice(0, remaining);
 
       for (const file of validFiles) {
-        if (file.size > MAX_SIZE) {
+        if (file.size > MAX_FILE_SIZE) {
           setError(`${file.name}: 파일 크기가 10MB를 초과합니다.`);
           return null;
         }
@@ -135,12 +137,6 @@ export function FileUpload({
     }
   }
 
-  function formatSize(bytes: number): string {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  }
-
   return (
     <div className="space-y-3">
       <div
@@ -157,19 +153,7 @@ export function FileUpload({
         }`}
         onClick={() => inputRef.current?.click()}
       >
-        <svg
-          className="mb-2 h-8 w-8 text-gray-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-          />
-        </svg>
+        <UploadCloud className="mb-2 h-8 w-8 text-gray-400" />
         <p className="text-sm text-gray-600 dark:text-gray-400">
           파일을 드래그하거나 클릭하여 선택하세요
         </p>
@@ -222,19 +206,7 @@ export function FileUpload({
                 onClick={() => removeFile(index)}
                 className="ml-2 flex-shrink-0 text-gray-400 hover:text-red-500"
               >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <X size={16} />
               </button>
             </li>
           ))}

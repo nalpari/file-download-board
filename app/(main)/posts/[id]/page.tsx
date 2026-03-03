@@ -6,25 +6,7 @@ import { DeletePostButton } from "@/components/delete-post-button";
 import Link from "next/link";
 import type { File as PrismaFile } from "@/generated/prisma/client";
 import { ArrowLeft, Edit, Calendar, User, Download } from "lucide-react";
-
-function formatDate(date: Date): string {
-  return new Date(date).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function getFileBadge(mimeType: string) {
-  if (mimeType.startsWith("image/")) return { label: "IMAGE", className: "badge-image" };
-  if (mimeType === "application/pdf") return { label: "PDF", className: "badge-pdf" };
-  if (mimeType.includes("spreadsheet") || mimeType.includes("excel")) return { label: "EXCEL", className: "badge-excel" };
-  if (mimeType.includes("word") || mimeType.includes("document")) return { label: "WORD", className: "badge-word" };
-  if (mimeType.includes("zip") || mimeType.includes("archive")) return { label: "ZIP", className: "badge-zip" };
-  return { label: "FILE", className: "badge-default" };
-}
+import { formatDateTime, getFileTypeInfo, isAdminUser } from "@/lib/utils";
 
 export default async function PostDetailPage({
   params,
@@ -32,15 +14,13 @@ export default async function PostDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const post = await getPost(id);
+  const [post, session] = await Promise.all([getPost(id), auth()]);
 
   if (!post) notFound();
 
-  const session = await auth();
   const isOwner = session?.user?.id === post.authorId;
-  const isAdmin = (session?.user as { role?: string })?.role === "ADMIN";
-  const canEdit = isOwner || isAdmin;
-  const primaryBadge = post.files[0] ? getFileBadge(post.files[0].mimeType) : null;
+  const canEdit = isOwner || isAdminUser(session?.user);
+  const primaryType = post.files[0] ? getFileTypeInfo(post.files[0].mimeType) : null;
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -70,8 +50,8 @@ export default async function PostDetailPage({
                 >
                   {post.title}
                 </h1>
-                {primaryBadge && (
-                  <span className={`badge ${primaryBadge.className}`}>{primaryBadge.label}</span>
+                {primaryType && (
+                  <span className={`badge ${primaryType.badgeClass}`}>{primaryType.label}</span>
                 )}
               </div>
               <div className="flex items-center gap-4 text-sm" style={{ color: "var(--text-muted)" }}>
@@ -81,7 +61,7 @@ export default async function PostDetailPage({
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Calendar size={14} />
-                  {formatDate(post.createdAt)}
+                  {formatDateTime(post.createdAt)}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Download size={14} />

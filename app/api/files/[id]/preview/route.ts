@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import sharp from "sharp";
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
 const IMAGE_MIME_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
@@ -12,7 +12,10 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const file = await prisma.file.findUnique({ where: { id } });
+  const file = await prisma.file.findUnique({
+    where: { id },
+    select: { mimeType: true, path: true, size: true },
+  });
 
   if (!file) {
     return NextResponse.json({ error: "파일을 찾을 수 없습니다." }, { status: 404 });
@@ -26,14 +29,17 @@ export async function GET(
   }
 
   const filePath = path.resolve(file.path);
-  if (!fs.existsSync(filePath)) {
+
+  let fileBuffer: Buffer;
+  try {
+    fileBuffer = await fs.readFile(filePath);
+  } catch {
     return NextResponse.json({ error: "파일이 서버에 존재하지 않습니다." }, { status: 404 });
   }
 
   // PDF: 원본 파일 그대로 반환 (미리보기 전용, 다운로드 카운트 미증가)
   if (file.mimeType === "application/pdf") {
-    const fileBuffer = fs.readFileSync(filePath);
-    return new Response(fileBuffer, {
+    return new Response(new Uint8Array(fileBuffer), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Length": String(file.size),

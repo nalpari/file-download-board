@@ -75,6 +75,14 @@ body {
 .badge-zip { background: #FEF3C7; color: #D97706; }
 .badge-default { background: #F3F4F6; color: #6B7280; }
 
+/* Hover utilities */
+.table-row-hover:hover {
+  background-color: var(--bg-surface);
+}
+.link-hover:hover {
+  color: var(--accent-primary);
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

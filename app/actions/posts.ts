@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { deleteFile } from "@/lib/upload";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { isAdminUser } from "@/lib/utils";
 
 // 게시글 목록 조회 (페이지네이션)
 export async function getPosts(page: number = 1, limit: number = 10) {
@@ -88,11 +89,13 @@ export async function updatePost(id: string, formData: FormData) {
   const session = await auth();
   if (!session?.user?.id) throw new Error("로그인이 필요합니다.");
 
-  const post = await prisma.post.findUnique({ where: { id } });
+  const post = await prisma.post.findUnique({
+    where: { id },
+    select: { authorId: true },
+  });
   if (!post) return { error: "게시글을 찾을 수 없습니다." };
 
-  const isAdmin = (session.user as { role: string }).role === "ADMIN";
-  if (post.authorId !== session.user.id && !isAdmin) {
+  if (post.authorId !== session.user.id && !isAdminUser(session.user)) {
     return { error: "수정 권한이 없습니다." };
   }
 
@@ -105,9 +108,10 @@ export async function updatePost(id: string, formData: FormData) {
   if (deleteFileIds.length > 0) {
     const filesToDelete = await prisma.file.findMany({
       where: { id: { in: deleteFileIds } },
+      select: { path: true },
     });
     await Promise.all(
-      filesToDelete.map((f: { path: string }) => deleteFile(f.path))
+      filesToDelete.map((f) => deleteFile(f.path))
     );
     await prisma.file.deleteMany({ where: { id: { in: deleteFileIds } } });
   }
@@ -151,12 +155,11 @@ export async function deletePost(id: string) {
 
   const post = await prisma.post.findUnique({
     where: { id },
-    include: { files: true },
+    select: { authorId: true, files: { select: { path: true } } },
   });
   if (!post) return { error: "게시글을 찾을 수 없습니다." };
 
-  const isAdmin = (session.user as { role: string }).role === "ADMIN";
-  if (post.authorId !== session.user.id && !isAdmin) {
+  if (post.authorId !== session.user.id && !isAdminUser(session.user)) {
     return { error: "삭제 권한이 없습니다." };
   }
 

@@ -4,10 +4,11 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { deleteFile } from "@/lib/upload";
 import { revalidatePath } from "next/cache";
+import { isAdminUser } from "@/lib/utils";
 
 async function requireAdmin() {
   const session = await auth();
-  if (!session?.user || (session.user as { role: string }).role !== "ADMIN") {
+  if (!session?.user || !isAdminUser(session.user)) {
     throw new Error("관리자 권한이 필요합니다.");
   }
   return session;
@@ -61,15 +62,14 @@ export async function deleteUser(userId: string) {
   await requireAdmin();
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: { posts: { include: { files: true } } },
+    select: { posts: { select: { files: { select: { path: true } } } } },
   });
   if (!user) throw new Error("사용자를 찾을 수 없습니다.");
 
-  for (const post of user.posts) {
-    for (const file of post.files) {
-      await deleteFile(file.path);
-    }
-  }
+  const allFilePaths = user.posts.flatMap((post) =>
+    post.files.map((file) => file.path)
+  );
+  await Promise.all(allFilePaths.map(deleteFile));
   await prisma.user.delete({ where: { id: userId } });
   revalidatePath("/admin/users");
 }
@@ -96,13 +96,11 @@ export async function adminDeletePost(postId: string) {
   await requireAdmin();
   const post = await prisma.post.findUnique({
     where: { id: postId },
-    include: { files: true },
+    select: { files: { select: { path: true } } },
   });
   if (!post) throw new Error("게시글을 찾을 수 없습니다.");
 
-  for (const file of post.files) {
-    await deleteFile(file.path);
-  }
+  await Promise.all(post.files.map((file) => deleteFile(file.path)));
   await prisma.post.delete({ where: { id: postId } });
   revalidatePath("/admin/posts");
 }

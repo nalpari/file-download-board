@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
 export async function GET(
@@ -16,7 +16,7 @@ export async function GET(
   const { id } = await params;
   const file = await prisma.file.findUnique({
     where: { id },
-    include: { post: true },
+    select: { mimeType: true, originalName: true, size: true, path: true, postId: true },
   });
 
   if (!file) {
@@ -24,7 +24,11 @@ export async function GET(
   }
 
   const filePath = path.resolve(file.path);
-  if (!fs.existsSync(filePath)) {
+
+  let fileBuffer: Buffer;
+  try {
+    fileBuffer = await fs.readFile(filePath);
+  } catch {
     return NextResponse.json({ error: "파일이 서버에 존재하지 않습니다." }, { status: 404 });
   }
 
@@ -34,9 +38,7 @@ export async function GET(
     data: { downloadCount: { increment: 1 } },
   });
 
-  const fileBuffer = fs.readFileSync(filePath);
-
-  return new Response(fileBuffer, {
+  return new Response(new Uint8Array(fileBuffer), {
     headers: {
       "Content-Type": file.mimeType,
       "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(file.originalName)}`,

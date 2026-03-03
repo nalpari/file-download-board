@@ -4,14 +4,7 @@ import {
   DeleteUserButton,
 } from "@/components/admin-user-actions";
 import type { Role } from "@/generated/prisma/enums";
-
-function formatDate(date: Date): string {
-  return new Date(date).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-}
+import { formatDate } from "@/lib/utils";
 
 export default async function AdminUsersPage({
   searchParams,
